@@ -1,0 +1,150 @@
+// global variables needed throughout the script file
+var spreadSheet=SpreadsheetApp.openById("1yig9t6hAkKd3n4ezMERx_4Dh4obA0wPk1QYgK8krqxs");
+
+
+function aikenRecentlyDone(){
+  var spreadSheet=SpreadsheetApp.openById("1yig9t6hAkKd3n4ezMERx_4Dh4obA0wPk1QYgK8krqxs");
+  var sheet=spreadSheet.getSheetByName("Query");
+  var data = sheet.getRange(1, 1, sheet.getLastRow(),2).getValues();
+  
+  var html="<style>th{background: #abcde1},td{border:0px solid #000;padding:5px;}</style><table id='customers'> <caption style='color:white;font-size:18px; background-color:#1ca7ed;font-weight: bold;text-align:center'>Recently Done IVs</caption><th>Patient Name</th> <th>Status</th>";
+  var htmlOutput = "<head><?!= include('TableStyleSheet'); ?></head>"
+  + "<body>"
+  + " <div style='width:20%;margin-left:5%;margin-right:5%'>"
+  + "<h4 style='padding:0px;text-align:center;font-size:18pt'>Recent IVs </h4>";
+  var temp=data[1].length;
+  for(var i=0;i<data.length;i++){
+    if(data[i][0]!=""){
+      html+='<tr>';
+      for(var j=0;j<data[1].length;j++){
+        if(data[i][temp]!=""){
+          var x=data[i][j];
+          
+          html += "<td>"+data[i][j]+"</td>";
+        }
+      }
+      html+= "</tr>";
+      
+    }
+    
+  }
+  html += "</table>";
+  htmlOutput=    "</div></body>";
+  htmlOutput=htmlOutput+html;
+  return htmlOutput ;
+}
+
+function aikenPendingIv(fridayTrue){
+  var sheet=spreadSheet.getSheetByName("Query");
+  if(!fridayTrue)
+    var data = sheet.getRange(1, 11, sheet.getLastRow(), 15).getValues();
+  else
+    var data = sheet.getRange(1, 20, sheet.getLastRow(), 24).getValues();
+  var html="<table id='customers'><caption style='color:white;font-size:18px; background-color:#1ca7ed;font-weight: bold;text-align:center'>Pending IVs In Queue</caption> <th>IV Type</th><th>Patient Name</th> <th>Requested Date</th> <th>Appointment Date</th> <th>Will be Complete By</th>";
+  var htmlOutput = "<head><?!= include('TableStyleSheet'); ?></head>"
+  + "<body>"
+  + " <div style='width:20%;margin-left:5%;margin-right:5%'>"
+  + "<h4 style='padding:0px;text-align:center;font-size:18pt'>Recent IVs </h4>";
+  
+  for(var i=0;i<data.length;i++){
+    if(data[i][1]!=""){
+      html+='<tr>';
+      for(var j=0;j<5;j++){
+        if(data[i][j]!=""){
+          var x=data[i][j];
+          var y;
+          if(x.constructor===Date){
+            if(x.getHours()!=0){
+              if(x.getMinutes()>=0 && x.getMinutes()<=9){
+                y="0"+String((x.getMinutes()));
+                html+="<td>" + (x.toDateString()) + ", " + (x.getHours()) + ":" + y + "</td>";
+                }
+                else{
+              html+="<td>" + (x.toDateString()) + ", " + (x.getHours()) + ":" + (x.getMinutes()) + "</td>";
+                }
+            }
+            else{
+              html+="<td>" + (x.toDateString()) + "</td>";
+            }
+          }
+          else{       
+            html += "<td>"+data[i][j]+"</td>";
+          }
+        }
+        else{
+          
+          html+="<td></td>";
+          
+        }
+        
+      }
+      html+= "</tr>";  
+    }
+  }
+  html += "</table>";
+  htmlOutput=    "</div></body>";
+  htmlOutput=htmlOutput+html;
+  return htmlOutput ;
+  
+}
+function aikenCountPendingIv(){
+  var sheet=spreadSheet.getSheetByName("Query");
+  var html="<style>th{background: #abcde1},td{border:0px solid #000;padding:5px;}</style>"
+  + "<table id='pendingIV'>";
+  var htmlOutput = "<head><?!= include('TableStyleSheet'); ?></head>"
+  + "<body>";
+  // html+="<td style='margin-left:40%; margin-right:40%;'>"+sheet.getRange(7, 7).getValue()+"</td>";
+  html+='<caption style="color:white;font-size:18px; background-color:#1ca7ed;font-weight: bold;text-align:center">Total IVs Pending for Appointments</caption>';
+  html+="<tr>"
+  html+="<th>"+"Today"+"</th>";
+  html+="<th>"+"Tomorrow"+"</th>";
+  html+="<th>"+sheet.getRange(12, 8).getDisplayValue()+"</th>";
+  
+  
+  html+="<th>"+sheet.getRange(12, 9).getValue()+"</th>";
+  
+  html+="</tr><tr>";
+  html+="<td>"+sheet.getRange(14, 6).getValue()+"</td>";
+  html+="<td>"+sheet.getRange(14, 7).getValue()+"</td>";
+  html+="<td>"+sheet.getRange(14, 8).getValue()+"</td>";
+  html+="<td>"+sheet.getRange(14, 9).getValue()+"</td>";
+  html+="</tr>";
+  html+="</table>";
+  htmlOutput+="</div></body>";
+  htmlOutput+=html;
+  return htmlOutput;
+}
+
+
+function aikenCountCompleteIv(){
+  var sheet=spreadSheet.getSheetByName("Query");
+  var html="<style>th{background: #abcde1},td{border:0px solid #000;padding:5px;}</style>"
+  + "<table id='completeIV'> <caption style='color:white;font-size:18px; background-color:#1ca7ed;font-weight: bold;text-align:center'>Total IVs Completed This Month</caption>";
+  //html+="<th style='margin-left:40%; margin-right:40%'>"+sheet.getRange(16, 7).getValue()+"</th>";
+  html+="<th>"+"Today"+"</th>";
+  html+="<th>"+"Yesterday"+"</th>";
+  html+="<th>"+"Last 7 Days"+"</th>";
+  
+  html+="<tr>";
+  html+="<td>"+sheet.getRange(23, 6).getValue()+"</td>";
+  html+="<td>"+sheet.getRange(23, 7).getValue()+"</td>";
+  html+="<td>"+sheet.getRange(23, 8).getValue()+"</td>";
+  html+="</tr>";
+  html+="<caption style='color:white;font-size:18px; background-color:#1ca7ed;font-weight: bold;text-align:center'>"+sheet.getRange(20, 6).getValue()+"</caption>";
+  
+  html+="</table></div></body>";
+  return html; 
+}
+/*function ivStatus(){
+var sheet=spreadSheet.getSheetByName("Query");
+var data = sheet.getRange(5, 1).getDisplayValue();
+return data;
+}
+*/    
+function aikenReturnMonthly(){
+  var sheet=spreadSheet.getSheetByName("Query");
+  var monthly=[];
+  monthly[0]=sheet.getRange(7, 7).getValue();
+  monthly[1]=sheet.getRange(16, 7).getValue();
+  return monthly;
+}

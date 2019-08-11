@@ -1,0 +1,55 @@
+function doPost(e){
+if(e.parameter.userName!="" && e.parameter.password!=""){
+ return ivDashboard(e.parameter.userName, e.parameter.password);
+     }
+     
+ else{
+   return faulty();
+   }
+  }
+    /*
+Function Name: ivDashboard(username, password)
+Description:  I/P => Takes 2 parameters of type String. Compares to the sheet assigned.  
+              O/P => Retursn HTML output if credentials match else returns to fault Login page.
+      
+*/
+function ivDashboard(username, password){
+  var spread_sheet=SpreadsheetApp.openById("1CVvbvip_NlRMpTspKkVjzkljncwaX7220ze2guucx3w");
+  var sheet=spread_sheet.getSheetByName("Offices");
+  var data=sheet.getRange(3, 1, sheet.getLastRow(), sheet.getLastColumn()).getValues();
+    for(var i=0;i<data.length;i++){
+      if(username!="aikenfamilydental" && data[i][1]==username && data[i][2]==password){
+         var html = HtmlService.createTemplateFromFile("clientPortal");
+         html.officeName = data[i][0];
+         html.ivStatus = data[i][3];
+         html.credentialingStatus = data[i][4];
+         html.billCollectStatus = data[i][5];
+         html.fullName = data[i][6];
+         html.url = data[i][7];
+         return html.evaluate();
+      }
+      if(username=="aikenfamilydental" && data[i][2]==password){
+        var html = HtmlService.createTemplateFromFile("clientPortal")
+         html.officeName = data[i][0];
+         html.ivStatus = data[i][3];
+         html.credentialingStatus = data[i][4];
+         html.billCollectStatus = data[i][5];   
+         html.fullName = data[i][6];
+         html.url = data[i][7];
+         return html.evaluate();
+     }
+   } 
+ return faulty();
+ }
+   
+     /*
+Function Name:faulty()
+Description:  O/P => Returns the fault login page as html output.
+      
+*/ 
+
+function faulty(){
+   return HtmlService.createHtmlOutputFromFile("faultLogin");
+  
+  }
+  

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TRIAL_VERSION</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_top">
+    <script>
+  
+    </script>
+    <style>
+      header{
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        padding:7px;
+        color:#ffffff;
+        }
+      body {
+        background-image: url("https://smilewhistler.com/wp-content/uploads/2018/10/Whistler-Creekside-Dental.jpg");
+        background-size: 120%;
+        background-repeat: no-repeat;
+        }
+      .form{
+        margin-left : 80%;
+        margin-right : 20%;
+        }
+      
+      .center{
+        display:block;
+        margin-left:auto;
+        margin-right:auto;
+        }
+      p {
+        color: #4fbcef;
+        font-weight:bold;
+        font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+        }
+      .submit{
+        background-color:#595;
+        color:#ffffff;
+        font-weight:bold;
+        font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+        border-radius:8px;
+        width:80px;
+        height:30px;
+        }
+      .list{
+        background-color:#4fbcef;
+        }
+      
+      .thanks{
+        color:red;
+        font-weight:bold;
+        font-style:italic;
+        margin-left:auto;
+        margin-right:auto;
+        display:block;
+        text-align:center;
+        }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src="https://www.caplinedentalservices.com/wp-content/themes/newsmag-child/images/logo.png" class="center"> 
+    </header>
+    <p class="thanks"> Thank you for using IV tracker!</p>
+    <form  action="https://script.google.com/a/caplineservices.com/macros/s/AKfycbxshezYLLpN-vlmLaHwGLvdok-ZkBZnxPVEzBRe/exec" 
+    method="POST" target="_top" class="form" id="loginForm">
+      <!-- IV Form web app url where the database sheet is linked and request will be processed-->
+      <h4 style="font-size:40px;
+      font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; color:#4fbcef">Login</h4>
+      
+      
+      <p ><input type="text" name="userName" placeholder="Username" style="padding: 3px;width:200px;">
+      </p>
+      <p><input type="password" name="password" placeholder="Password" style="padding:3px;width:200px;"> 
+      
+      </p>
+      <input type="submit" value="Login" align="center" class="submit">
+    </form>
+  </body>
+</html>

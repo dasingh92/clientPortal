@@ -1,0 +1,836 @@
+
+<!DOCTYPE html>
+<html>
+<title> Table fetch by office name</title>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale:1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <base target="_top">
+    
+  <style>
+    #recently {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      margin-left:2%;
+      margin-right:2%;
+      
+      }
+    
+    #recently td,
+    #recently th {
+      border: 4px solid #fff;
+      padding: 3px;
+      border-radius: 4px;
+      font-size:12px;
+      }
+    
+    #recently tr:nth-child(even) {
+      background-color: #f2f2f2;
+      }
+    
+    #recently tr:hover {
+      background-color: #ddd;
+      }
+    
+    #recently th {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-align: left;
+      background-color: #F76137;
+      color: white;
+      }
+    
+    #pending {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width:100%;
+      margin-left:0%;
+      margin-right:0%;
+      }
+    
+    #pending td,
+    #pending th {
+      border: 4px solid #fff;
+      padding: 3px;
+      border-radius: 4px;
+      font-size:12px;
+      }
+    
+    #pending tr:nth-child(even) {
+      background-color: #f2f2f2;
+      }
+    
+    #pending tr:hover {
+      background-color: #ddd;
+      }
+    
+    #pending th {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-align: left;
+      background-color: #F76137;
+      color: white;
+      }
+    
+    #pendingIV {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width:100%;
+      }
+    
+    #pendingIV td,
+    #pendingIV th {
+      border: 4px solid #fff;
+      padding: 3px;
+      border-radius: 4px;
+      font-size:12px;
+      text-align:center;
+      }
+    
+    #pendingIV tr:nth-child(even) {
+      background-color: #f2f2f2;
+      }
+    
+    #pendingIV tr:hover {
+      background-color: #ddd;
+      }
+    
+    #pendingIV th {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-align: left;
+      background-color: #F76137;
+      color: white;
+      text-align:center;
+      }
+    
+    #completeIV {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      }
+    
+    #completeIV td,
+    #completeIV th {
+      border: 4px solid #fff;
+      padding: 3px;
+      border-radius: 4px;
+      font-size:12px;
+      text-align:center;
+      }
+    
+    #completeIV tr:nth-child(even) {
+      background-color: #f2f2f2;
+      }
+    
+    #completeIV tr:hover {
+      background-color: #ddd;
+      }
+    
+    #completeIV th {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-align: left;
+      background-color: #F76137;
+      color: white;
+      text-align:center;
+      }
+    
+    #credentialing {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width:98%;
+      margin-left:1%;
+      margin-right:1%;
+      
+      }
+    
+    #credentialing td,
+    #credentialing th {
+      border: 4px solid #fff;
+      padding: 3px;
+      border-radius: 4px;
+      font-size:12px;
+      text-align:center;
+      }
+    
+    #credentialing tr:nth-child(even) {
+      background-color: #f2f2f2;
+      }
+    
+    #credentialing tr:hover {
+      background-color: #ddd;
+      }
+    
+    #credentialing th {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      background-color: #F76137;
+      color: white;
+      text-align:center;
+      }
+     
+      .fullTable{
+        float:center;
+        width:100%;
+        padding:1%;
+      }
+         
+      .column {
+        float: left;
+        width: 33.33%;
+        padding:1%;
+        }
+  
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+  @media screen and (max-width:320px) {
+    .column {
+      width: 100%;
+    }
+  }
+  .span{
+    color:white;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size:20px;
+    background-color:#1ca7ed;
+    display:inline-block;
+    width:100%;
+    height:30px;
+    padding: 5px;
+    border: 0px; 
+    margin:4px; 
+    border-radius: 7px;
+    text-align:center;
+    }
+  
+  
+  .doneBox{
+    font-size:40px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    display:block;
+    padding-top: 3px;
+    padding-bottom:3px;
+    margin-left:40%;
+    margin-right:40%;
+    text-align:center;
+    font-weight:bold;
+    border-radius: 7px;
+    }
+  
+  .date{
+    text-align:right;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    transform:translateY(0px);
+    }
+  
+  .ivStatus{
+    text-align:left;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    }
+  
+  footer{
+    width:100%;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    background-color:#abcde8;
+    padding:5px;
+    text-align:center;
+    clear:both;
+    }
+  .submit{
+    display:block;
+    margin-left:90%;
+    margin-right:10%;
+    background-color:#619BCB;
+    color:#ffffff;
+    font-weight:bold;
+    font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    border-radius:8px;
+    width:10%;
+    height:30px;
+    }
+  
+  h2 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #4CAF50;
+    }
+  
+  .fridayWork{
+    display:block;
+    margin-left:80%;
+    margin-right:20%;
+    transform:translateY(-30px);
+    background-color:#619BCB;
+    color:#ffffff;
+    font-weight:bold;
+    font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    border-radius:8px;
+    width:10%;
+    height:30px;
+    }
+  
+  .refreshSubmit{
+    display:block;
+    margin-left:90%;
+    margin-right:10%;
+    background-color:#619BCB;
+    color:#ffffff;
+    font-weight:bold;
+    font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    border-radius:8px;
+    width:10%;
+    height:30px;
+  }
+  .buttonload {
+    border: none;
+    /* Remove borders */
+    color: white;
+    /* White text */
+    padding: 12px 24px;
+    /* Some padding */
+    font-size: 16px;
+    /* Set a font-size */
+    }
+  
+  /* Style the tab */
+  .tab {
+    overflow: hidden;
+    border: 0px;
+    background-color: #EEEEEE;
+  }
+  
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin: 4px 4px 4px 4px;
+    padding: 10px 10px;
+    transition: 0.3s;
+    font-size: 17px;
+    color : #ffffff;
+    font-weight:bold;
+    background-image: linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+    
+    background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0, rgb(73,132,180)),
+    color-stop(1, rgb(97,155,203))
+    );
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
+    
+    
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+    }
+  
+  /* Fade in tabs */
+  @-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  
+  *{
+   box-sizing: border-box;
+  }
+  
+  .header{
+    background-color: #ffffff;
+    padding: 5px;
+    text-align: center;
+    color: #1ca7ed;
+    }
+  
+  .imageLeft{
+    float:left;
+    display:block;
+    transform:translateY(10px);
+    transform:translateX(20px);
+    height : 100px;
+    width : 100px;
+    
+    }
+  
+  .center{
+    float:center;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    height : 220px;
+    width : 600px;
+    opacity:0.5;
+    }
+  
+  .heading2{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  
+  .footer{
+  background-color:#1ca7ed;
+  padding:15px;
+  text-align:center;
+  }
+  
+  .square_btn{
+    display: inline-block;
+    margin: 4px 4px 4px 4px;
+    padding: 10px 10px;
+    background-color: inherit;
+    float: right;
+    text-decoration: none;
+    font-size: 17px;
+    background: #f7f7f7;
+    border-left: solid 6px #ff7c5c;
+    color: #ff7c5c;
+    font-weight: bold;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+}
+.square_btn:active {
+    box-shadow: inset 0 0 2px rgba(128, 128, 128, 0.1);
+    transform: translateY(2px);
+}
+.square_btn:hover {
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  }
+  </style>
+
+</head>
+<body>
+  
+  <header class="header">
+    <img src="<?=url?>" class="imageLeft">
+    <button type="button" name="logout" value="Logout" class="submit" onclick="logout()"> Logout </button>
+    <h3 style="font-size:35px ;">Client Portal for <?=fullName?></h3>
+    <button class = "square_btn" onClick="window.open('https://www.billandpay.com/go/capline');">Pay your bill online</button>
+    <p id="value"></p>
+  </header>
+  
+  <div class="tab">
+    <button class="tablinks" value="Beaumont" onclick="openIv(event,<?=officeName?>, <?=ivStatus?>)">IV Dashboard</button>
+    <button class="tablinks"  value="Crosby" onclick="openCredentialing(event,<?=officeName?>, <?=credentialingStatus?>)">Credentialing Dashboard</button>
+    <button class="tablinks"  value="Splendora" onclick="openBillCollect(event,<?=officeName?>, <?=billCollectStatus?>)">Billing & Collections </button>
+        
+  </div>
+  
+  <div class="heading2">
+    <h2 id = "heading" style="text-align: center;" > Welcome to your Dashboard! </h2>
+    <p id="toSubscribe" style="color:#444444; font-size:120%; font-weight:bold;padding:2px; font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;text-align:center;"></p>
+    <img src="https://www.caplinedentalservices.com/wp-content/uploads/2019/04/Capline-Logo-1-e1555004151181.png" class="center">
+  </div>
+  
+  <div class="tabcontent">
+      <p style="color:#444444; font-size:120%; font-weight:bold;padding:2px; font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;">
+        <span id="IV" style="text-align:left"></span>
+        <span id="date" class="date" ><script> document.write(new Date().toDateString()+"  "); document.write("  "+new Date().toLocaleTimeString('en-US')); </script>
+        </span> 
+      </p>
+    
+    <p style="color:#444444; font-size:120%; font-weight:bold;padding:2px; font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;transform:translateY(-20px);">
+      <span id="status"></span> &nbsp;
+      <span id="count" style="padding-left:10px; padding-right:10px;align:center"></span>
+      <button id="refresh" class="refreshSubmit" onclick="refresh(<?=officeName?>)">Refresh</button>
+      <button type="button" id="credRefresh" class="refreshSubmit" onclick="credentialingRefresh(<?=officeName?>)">Refresh</button>
+      <button type="button" id="fridayValue" class="fridayWork" onclick="callFriday()">Friday Working </button> 
+    </p>
+    
+    <p id="loading"></p>
+    <div class="row">
+      <table id="credentialing" class="fullTable"></table>
+      <div class="column">
+        <table id="recently" >
+        </table>
+      </div>
+      
+      <div class="column">
+        <p><span id="Val" class="doneBox"></span></p>
+        <table id="pendingIV">
+        </table>
+        <br>
+        
+        <p><span id="comVal" class="doneBox"></span></p>
+        <table id="completeIV">
+        </table>
+      </div>
+      
+      <div class="column">
+        <table class="column" id="pending">
+        </table>
+      </div>
+    </div>
+  </div> 
+  </body>
+  
+ <script>
+  var ivStatus = <?=ivStatus?>;
+  var credentialingStatus = <?=credentialingStatus?>;
+  var billCollectStatus = <?=billCollectStatus?>;
+   /*
+Function Name: iv_Status(Array array)
+Description:  I/P => Takes a parameter of type array containing the return value of ivStatus called from the function refresh().
+              O/P => Writes the values of the array to the respective HTML elements.
+      
+*/ 
+  function iv_Status(array){
+    if(array[0]=="We are currently not accepting Rush IVs"){
+      document.getElementById('IV').style.color = "red";
+      document.getElementById("IV").innerHTML=array[0];
+      document.getElementById('status').style.color = "red";
+      document.getElementById("status").innerHTML=array[1];
+      document.getElementById('count').style.backgroundColor = "red";
+      document.getElementById('count').style.color = "white";
+      document.getElementById("count").innerHTML=array[2];
+      }
+  else{
+    document.getElementById('IV').style.color = "green";
+    document.getElementById("IV").innerHTML=array[0];
+    document.getElementById('status').style.color = "green";
+    document.getElementById("status").innerHTML=array[1];
+    document.getElementById('count').style.backgroundColor = "green";
+    document.getElementById('count').style.color = "white";
+    document.getElementById("count").innerHTML=array[2];
+    }
+  }
+  
+   /*
+Function Name: displayRecentlyDone(<table> table)
+Description:  I/P => Takes a parameter of type HTML table retuned from the call to function recentlyDone(officeName). Called from refresh()
+                     or aikenRefresh().
+              O/P => Writes the value of table to the selected element.
+      
+*/ 
+  function displayRecentlyDone(table){                
+    document.getElementById("recently").innerHTML=table;
+    document.getElementById("loading").innerHTML='<p style="display:none></p>"';
+    }
+   /*
+Function Name: displayPending(<table> table)
+Description:  I/P => Takes a parameter of type HTML table retuned from the call to function pendingIv(officeName). Called from refresh()
+                     or aikenRefresh().
+              O/P => Writes the value of table to the selected element.
+      
+*/   
+  function displayPending(table){  //Function to display the pending IV
+    document.getElementById("pending").innerHTML=table;
+    document.getElementById("loading").innerHTML='<p style="display:none></p>"';
+    }
+    /*
+Function Name: displayRemaining(<table> table)
+Description:  I/P => Takes a parameter of type HTML table retuned from the call to function pendingIV(officeName). Called from refresh()
+                     or aikenRefresh().
+              O/P => Writes the value of table to the selected element.
+      
+*/ 
+  function displayRemaining(table){
+    document.getElementById("pendingIV").innerHTML=table;
+    document.getElementById("loading").innerHTML='<p style="display:none></p>"';
+    }
+  
+   /*
+Function Name: displayComplete(<table> table)
+Description:  I/P => Takes a parameter of type HTML table retuned from the call to function completeIV(officeName). Called from refresh()
+                     or aikenRefresh().
+              O/P => Writes the value of table to the selected element.
+      
+*/   
+  
+  function displayComplete(table){
+    document.getElementById("completeIV").innerHTML=table;
+    document.getElementById("loading").innerHTML='<p style="display:none></p>"';
+    }
+  
+     /*
+Function Name: montlyStatus(Array array)
+Description:  I/P => Takes a parameter of type array retuned from the call to function returnMonthly(officeName). Called from refresh()
+                     or aikenRefresh().
+              O/P => Writes the values of array to the specific elements.
+      
+*/ 
+  
+  function monthlyStatus(array){
+    document.getElementById("Val").innerHTML=array[0];
+    document.getElementById("comVal").innerHTML=array[1];
+    document.getElementById("loading").innerHTML='<p style="display:none></p>"'; 
+    }
+  
+   /*
+Function Name: displayCredentialing(<table> table)
+Description:  I/P => Takes a parameter of type HTML table retuned from the call to function credentialing(officeName). Called from 
+                     CredentialingRefresh().
+              O/P => Writes the value of table to the selected element.
+      
+*/   
+  function displayCredentialing(table){
+    document.getElementById("credentialing").innerHTML=table;
+    document.getElementById("loading").innerHTML='<p style="display:none></p>"';
+    }
+    
+   /*
+Function Name: refresh(officeName)
+Description:  I/P => Takes a parameter of type String to call all functions in the FetchData file. Called from openIv(). If officeName == Aiken, 
+                     switches over to the aikenRefresh() function.    
+              O/P => void. Calls functions to return the respective values does not return anything itself.
+      
+*/ 
+  function refresh(officeName){
+    if(officeName!="Aiken"){
+      document.getElementById("loading").innerHTML = '<p class="buttonload" style="text-align: center;font-size:30px;color:black"><i class="fa fa-spinner fa-spin"></i>Loading</p>';
+      google.script.run.withFailureHandler(failed).withSuccessHandler(iv_Status).ivStatus(officeName);
+      google.script.run.withFailureHandler(failed).withSuccessHandler(displayRecentlyDone).recentlyDone(officeName); 
+      google.script.run.withFailureHandler(failed).withSuccessHandler(displayPending).pendingIv(officeName);
+      google.script.run.withFailureHandler(failed).withSuccessHandler(displayRemaining).pendingIV(officeName);
+      google.script.run.withFailureHandler(failed).withSuccessHandler(displayComplete).completeIV(officeName);
+      google.script.run.withFailureHandler(failed).withSuccessHandler(monthlyStatus).returnMonthly(officeName);
+      var date = new Date();
+      document.getElementById("date").innerHTML = date.toDateString() + "  " + date.toLocaleTimeString('en-US'); 
+      }
+    
+    else{
+      aikenRefresh();
+      } 
+  }
+    /*
+Function Name: aikenRefresh(officeName)
+Description:  I/P => Takes a parameter of type String to call all functions in the AikenFetchData file. Called from openIv().
+              O/P => void. Calls functions to return the respective values does not return anything itself.
+      
+*/  
+  function aikenRefresh(){
+    document.getElementById("loading").innerHTML = '<p class="buttonload" style="text-align: center;font-size:30px;color:black"><i class="fa fa-spinner fa-spin"></i>Loading</p>';
+    google.script.run.withFailureHandler(failed).withSuccessHandler(displayRecentlyDone).aikenRecentlyDone(); 
+    google.script.run.withFailureHandler(failed).withSuccessHandler(displayPending).aikenPendingIv(false);
+    google.script.run.withFailureHandler(failed).withSuccessHandler(displayRemaining).aikenCountPendingIv();
+    google.script.run.withFailureHandler(failed).withSuccessHandler(displayComplete).aikenCountCompleteIv();
+    google.script.run.withFailureHandler(failed).withSuccessHandler(monthlyStatus).aikenReturnMonthly();
+    document.getElementById("date").innerHTML = new Date().toDateString()+"  "+new Date().toLocaleTimeString('en-US');
+    }
+     /*
+Function Name: aikenRefresh(officeName)
+Description:  I/P => Takes a parameter of type String to call all functions in the CredentialingCode file. Called from openCredentialing().
+              O/P => void. Calls functions to return the respective values does not return anything itself.
+      
+*/  
+  function credentialingRefresh(officeName){
+    document.getElementById("loading").innerHTML = '<p class="buttonload" style="text-align: center;font-size:30px;color:black"><i class="fa fa-spinner fa-spin"></i>Loading</p>';
+    google.script.run.withFailureHandler(failed).withSuccessHandler(displayCredentialing).credentialing(officeName);
+    var date = new Date();
+    document.getElementById("date").innerHTML = date.toDateString() + "  " + date.toLocaleTimeString('en-US');
+    }
+     /*
+Function Name: callFriday()
+Description:  I/P => Takes a parameter of type String to call all functions in the CredentialingCode file. Called from openCredentialing().
+              O/P => void. Calls functions to return the respective values does not return anything itself.
+      
+*/  
+  function callFriday(){
+    document.getElementById("loading").innerHTML = '<p class="buttonload" style="text-align: center;font-size:30px;color:black"><i class="fa fa-spinner fa-spin"></i>Loading</p>';
+    google.script.run.withFailureHandler(failed).withSuccessHandler(displayPending).aikenPendingIv(true);
+    document.getElementById("date").innerHTML = new Date().toDateString()+"  "+new Date().toLocaleTimeString('en-US');
+    }
+     /*
+Function Name: logout()
+Description: O/P => Return type void. Opens the logout window on the same page.      
+*/  
+  function logout(){
+    window.open ("https://www.caplinedentalservices.com/client-portal/?toThanks=true", "_top");
+    }
+    /*
+Function Name: openIv(officeName)
+Description:  I/P => Takes 3 parameters of event(eventHandle Type), officeName(String) and Status(String) 
+                     Conditionally test if client has IV services based on status.
+              O/P => void. Calls functions to return the respective values does not return anything itself.
+      
+*/   
+  function openIv(evt, officeName, status) {
+    var i, tabcontent, tablinks, pretab;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    pretab =  document.getElementsByClassName("heading2");
+    
+    if(status == "true" && !(officeName=="Aiken")){
+      pretab[0].style.display = "none";
+      tabcontent[0].style.display = "block";
+      document.getElementById("refresh").style.display = "block";
+      document.getElementById("fridayValue").style.display = "none";
+      document.getElementById("credentialing").innerHTML = "";
+      document.getElementById("credRefresh").style.display = "none";
+      document.getElementById("Val").style.display = "block";
+      document.getElementById("comVal").style.display = "block";
+      document.getElementById("count").style.display = "inline-block";
+      refresh(officeName);
+      }
+    
+    else if(status == "true" && officeName=="Aiken"){
+      pretab[0].style.display = "none";
+      tabcontent[0].style.display = "block";
+      document.getElementById("refresh").style.display = "block";
+      document.getElementById("fridayValue").style.display = "block";
+      document.getElementById("credentialing").innerHTML = "";
+      document.getElementById("credRefresh").style.display = "none";
+      document.getElementById("Val").style.display = "block";
+      document.getElementById("comVal").style.display = "block";
+      document.getElementById("count").style.display = "inline-block";
+      aikenRefresh();
+      }
+    else{
+      pretab[0].style.display = "block";
+      document.getElementById("heading").innerHTML = "Sorry! You are not subscribed for this service."; 
+      document.getElementById("toSubscribe").innerHTML = "To subscibe for this service please call us on 888-666-0604. To know more about Insurance Verification, please <a href='https://www.caplinedentalservices.com/dental-insurance-verification/' target='_blank'>click here</a>.";
+      tabcontent[0].style.display = "none";
+      }
+    
+    tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active","");
+        }
+    evt.currentTarget.className += " active";
+    }
+    /*
+Function Name: openCredentialing(officeName)
+Description:  I/P => Takes 3 parameters of event(eventHandle Type), officeName(String) and Status(String) 
+                     Conditionally test if client has IV services based on status.
+              O/P => void. Calls functions to return the respective values does not return anything itself.
+      
+*/ 
+  function openCredentialing(evt, officeName, status) {
+    var i, tabcontent, tablinks, pretab;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    pretab =  document.getElementsByClassName("heading2");
+    
+    if(status == "true" && !(officeName=="Aiken")){
+      pretab[0].style.display = "none";
+      tabcontent[0].style.display = "block";
+      document.getElementById("IV").innerHTML="";
+      document.getElementById("refresh").style.display = "none";
+      document.getElementById("fridayValue").style.display = "none";
+      document.getElementById("recently").innerHTML = "";
+      document.getElementById("pendingIV").innerHTML = "";
+      document.getElementById("Val").style.display = "none";
+      document.getElementById("comVal").style.display = "none";
+      document.getElementById("completeIV").innerHTML = "";
+      document.getElementById("pending").innerHTML = "";
+      document.getElementById("status").innerHTML = "";
+      document.getElementById("count").style.display = "none";
+      document.getElementById("credRefresh").style.display = "block";
+      credentialingRefresh(officeName);
+      }
+    
+    else if(status == "true" && officeName=="Aiken"){
+      pretab[0].style.display = "none";
+      tabcontent[0].style.display = "block";
+      document.getElementById("IV").innerHTML="";
+      document.getElementById("refresh").style.display = "none";
+      document.getElementById("fridayValue").style.display = "none";
+      document.getElementById("recently").innerHTML = "none";
+      document.getElementById("pendingIV").innerHTML = "none";
+      document.getElementById("Val").style.display = "none";
+      document.getElementById("comVal").style.display = "none";
+      document.getElementById("completeIV").innerHTML = "none";
+      document.getElementById("pending").innerHTML = "none";
+      document.getElementById("status").innerHTML = "";
+      document.getElementById("count").style.display = "none";
+      document.getElementById("credRefresh").style.display = "block";
+      credentialingRefresh(officeName);
+      }
+    else{
+      pretab[0].style.display = "block";
+      document.getElementById("heading").innerHTML = "Sorry! You are not subscribed for this service."; 
+      document.getElementById("toSubscribe").innerHTML = "To subscibe for this service please call us on 888-666-0604. To know more about Credentialing, please <a href='https://www.caplinedentalservices.com/dental-credentialing/' target='_blank'>click here</a>.";
+      tabcontent[0].style.display = "none";
+      }
+    
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active","");
+      }
+    evt.currentTarget.className += " active";
+    }
+      /*
+Function Name: openBillCollect(officeName)
+Description:  I/P => Takes 3 parameters of event(eventHandle Type), officeName(String) and Status(String) 
+                     Conditionally test if client has IV services based on status.
+              O/P => void. Calls functions to return the respective values does not return anything itself.
+      
+*/
+  function openBillCollect(evt, officeName, status) {
+    var i, tabcontent, tablinks, pretab;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    pretab =  document.getElementsByClassName("heading2");
+    
+    if(status == "true" && !(officeName=="Aiken")){
+      pretab[0].style.display = "none";
+      tabcontent[0].style.display = "block";
+      document.getElementById("fridayValue").style.display = "none";
+      refresh(officeName);
+      }
+    
+    else if(status == "true" && officeName=="Aiken"){
+      pretab[0].style.display = "none";
+      tabcontent[0].style.display = "block";
+      document.getElementById("fridayValue").style.display = "none";
+      aikenRefresh();
+      }
+    else{
+      pretab[0].style.display = "block";
+      document.getElementById("heading").innerHTML = "Sorry! You are not subscribed for this service."; 
+      document.getElementById("toSubscribe").innerHTML = "To subscibe for this service please call us on 888-666-0604. To know more about Billing & Collections, please <a href='https://www.caplinedentalservices.com/dental-billing-collection/' target='_blank'>click here</a>.";
+      tabcontent[0].style.display = "none";
+      }
+    
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active","");
+      }
+    evt.currentTarget.className += " active";
+    }
+  
+  function failed(e){
+    alert("error:"+e);
+    }
+ </script>
+</html>

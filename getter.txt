@@ -1,0 +1,33 @@
+var spreadSheet=SpreadsheetApp.openById("1CVvbvip_NlRMpTspKkVjzkljncwaX7220ze2guucx3w");
+
+function doGet(e){
+  if (e.parameter.toThanks) {
+    return HtmlService.createHtmlOutputFromFile('logout')
+    .setSandboxMode(HtmlService.SandboxMode.IFRAME)
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  }
+  else{
+    return HtmlService.createHtmlOutputFromFile("login");
+  }
+}
+/*function getDropdown(sheetName,col,i,id){
+  var sh = spreadSheet.getSheetByName(sheetName);
+  var values = [] ;
+  var count = 2;
+  var lastRow = sh.getLastRow();
+  var temp;
+  values[0]=id;
+  values[1]="";
+  
+  for(i ; i<= lastRow; i++){
+    temp = sh.getRange(col+i).getDisplayValue();
+    if(temp==""){
+      break
+      } 
+    else{
+      values[count] = temp;
+      count++;
+      }
+  }
+  return values; 
+}*/

@@ -1,0 +1,190 @@
+// global variables needed throughout the script file
+var SpreadSheet=SpreadsheetApp.openById("1CVvbvip_NlRMpTspKkVjzkljncwaX7220ze2guucx3w");
+/*
+Function Name: recentlyDone(String officeName)
+Description:  I/P => Takes a parameter of String type containing the office name from the javascript in the client portal.
+              O/P => Returns a table containing the recently completed IV's. 
+      
+*/
+function recentlyDone(officeName){
+  var col = [], info = []; 
+  var sheet=SpreadSheet.getSheetByName(officeName);
+  col[0] = "A"; // Patient Name
+  col[1] = "B"; // Status
+  
+  var table="<style>th{background: #abcde1},td{border:0px solid #000;padding:5px;}</style><table id='customers'> <caption style='color:white;font-size:18px; background-color:#1ca7ed;font-weight: bold;text-align:center'>Recently Done IVs</caption><th>Patient Name</th> <th>Status</th>";
+  var htmlOutput = "<head><?!= include('TableStyleSheet'); ?></head>"
+  + "<body>"
+  + " <div style='width:20%;margin-left:5%;margin-right:5%'>"
+  + "<h4 style='padding:0px;text-align:center;font-size:18pt'>Recent IVs </h4>";
+  
+  var lastRow = sheet.getLastRow();
+  
+  for(var i=10; i<lastRow; i++){
+    info[0] = sheet.getRange(col[0]+i).getDisplayValue(); 
+    info[1] = sheet.getRange(col[1]+i).getDisplayValue(); 
+    
+    if(info[0]!=""){
+      table += '<tr>'
+      +'<td>'+info[0]+'</td>'
+      +'<td>'+info[1]+'</td>'
+      +'</tr>';
+     }
+    
+  }
+  table += "</table>";
+  htmlOutput =    "</div></body>";
+  htmlOutput = htmlOutput + table;
+  return htmlOutput ;
+}
+/*
+Function Name: pendingIv(String officeName)
+Description: I/P => Takes a parameter of String type containing the office name from the javascript in the client portal.
+             O/P => Returns a table containing the pending IV's. The data called is strictly according to the columns.  
+       
+*/
+function pendingIv(officeName){
+  var sheet=SpreadSheet.getSheetByName(officeName);
+  var data = sheet.getRange(10, 11, sheet.getLastRow(), sheet.getLastColumn()).getValues();
+  
+  var html="<table id='customers'><caption style='color:white;font-size:18px; background-color:#1ca7ed;font-weight: bold;text-align:center'>Pending IVs In Queue</caption> <th>Assigned To</th> <th>Patient ID </th> <th>Patient Name</th> <th>Requested Date</th> <th>Appointment Date</th> <th>Will be Complete By</th>";
+  var htmlOutput = "<head><?!= include('TableStyleSheet'); ?></head>"
+  + "<body>"
+  + " <div style='width:20%;margin-left:5%;margin-right:5%'>"
+  + "<h4 style='padding:0px;text-align:center;font-size:18pt'>Recent IVs </h4>";
+  
+  for(var i=0;i<data.length;i++){
+    if(data[i][1]!=""){
+      html+='<tr>';
+      for(var j=0;j<6;j++){
+        if(data[i][j]!=""){
+          var x=data[i][j];
+          if(x.constructor===Date){
+            html+="<td>"+(x.toDateString())+"</td>";
+          }
+          else{       
+            html += "<td>"+data[i][j]+"</td>";
+          }
+        }
+        else{
+          html+="<td></td>";
+          }
+      }
+      html+= "</tr>";  
+    }
+  }
+  html += "</table>";
+  htmlOutput=    "</div></body>";
+  htmlOutput=htmlOutput+html;
+  return htmlOutput ;
+
+}
+
+ /*
+Function Name: pendingIV(String officeName)
+Description:  I/P => Takes a parameter of String type containing the office name from the javascript in the client portal.
+              O/P => Returns a table containing the count of all the pending IV's for today, tomorrow, day after and others. 
+      
+*/ 
+
+function pendingIV(officeName){
+  var sheet=SpreadSheet.getSheetByName(officeName);
+  var html="<style>th{background: #abcde1},td{border:0px solid #000;padding:5px;}</style>"
+  + "<table id='pendingIV'>";
+  var htmlOutput = "<head><?!= include('TableStyleSheet'); ?></head>"
+  + "<body>";   
+  html+="<caption style='color:white;font-size:18px; background-color:#1ca7ed;font-weight: bold;text-align:center'>"+sheet.getRange(11, 5).getValue()+"</caption>";
+  html+="<th>"+sheet.getRange(12, 6).getValue()+"</th>";
+  html+="<th>"+sheet.getRange(12, 7).getValue()+"</th>";
+  var x=(sheet.getRange(12, 8).getValue()).getDay();
+  switch (x) {
+    case 1:
+      html+="<th>" +"Monday"+"</th>";
+      break;
+    case 2:
+      html+="<th>"+"Tuesday"+"</th>";
+      break;
+    case 3:
+      html+="<th>"+"Wednesday"+"</th>";
+      break;
+    case 4:
+      html+="<th>"+"Thursday"+"</th>";
+      break;
+    case 5:
+      html+="<th>"+"Friday"+"</th>";
+      break;
+  }
+  html+="<th>"+sheet.getRange(12, 9).getValue()+"</th>";
+  html+="<tr>";
+  html+="<td>"+sheet.getRange(14, 6).getValue()+"</td>";
+  html+="<td>"+sheet.getRange(14, 7).getValue()+"</td>";
+  html+="<td>"+sheet.getRange(14, 8).getValue()+"</td>";
+  html+="<td>"+sheet.getRange(14, 9).getValue()+"</td>";
+  html+="</tr>";
+  html+="</table>";
+  htmlOutput+="</div></body>";
+  htmlOutput+=html;
+  return htmlOutput;
+}
+ /*
+Function Name: completeIV(String officeName)
+Description:  I/P => Takes a parameter of String type containing the office name from the javascript in the client portal.
+              O/P => Returns a table containing the count of all the completed IV's for today, yesterday, and last week. 
+      
+*/ 
+function completeIV(officeName){
+  var sheet=SpreadSheet.getSheetByName(officeName);
+  var html="<style>th{background: #abcde1},td{border:0px solid #000;padding:5px;}</style>"
+  + "<table id='completeIV'> <caption style='color:white;font-size:18px; background-color:#1ca7ed;font-weight: bold;text-align:center'></caption>";
+  //html+="<th style='margin-left:40%; margin-right:40%'>"+sheet.getRange(16, 7).getValue()+"</th>";
+  html+="<th>"+sheet.getRange(21, 6).getValue()+"</th>";
+  html+="<th>"+sheet.getRange(21, 7).getValue()+"</th>";
+  html+="<th>"+sheet.getRange(21, 8).getValue()+"</th>";
+  
+  html+="<tr>";
+  html+="<td>"+sheet.getRange(23, 6).getValue()+"</td>";
+  html+="<td>"+sheet.getRange(23, 7).getValue()+"</td>";
+  html+="<td>"+sheet.getRange(23, 8).getValue()+"</td>";
+  html+="</tr>";
+  html+="<caption style='color:white;font-size:18px; background-color:#1ca7ed;font-weight: bold;text-align:center'>"+sheet.getRange(20, 6).getValue()+"</caption>";
+  
+  html+="</table></div></body>";
+  return html; 
+}
+
+ /*
+Function Name: ivStatus(String officeName)
+Description:  I/P => Takes a parameter of String type containing the office name from the javascript in the client portal.
+              O/P => Returns an array with the following data:
+                        data[0] = return type: String
+                                  value: whether accepting rush IV or not.
+                        data[1] = return type: String
+                                  value: Overloaded or accepting.
+                        data[2] = return type: Number
+                                  value: the number of rush IV's acceptable or the number of overload.      
+*/ 
+
+function ivStatus(officeName){
+  var data=[];
+  var sheet=SpreadSheet.getSheetByName(officeName);
+  data[0] = sheet.getRange(5, 1).getDisplayValue();
+  data[1] = sheet.getRange(6, 1).getDisplayValue();
+  data[2] = sheet.getRange(6, 3).getValue();
+  return data;
+}
+ /*
+Function Name: returnMonthly(String officeName)
+Description:  I/P => Takes a parameter of String type containing the office name from the javascript in the client portal.
+              O/P => Returns an array with the following data: 
+                          data[0] = return type: Number
+                                    value: total number of pending IV's.
+                          data[1] = return type: Number
+                                    value: Total number of IV's completed for the current month.
+*/ 
+function returnMonthly(officeName){
+  var sheet=SpreadSheet.getSheetByName(officeName);
+  var monthly=[];
+  monthly[0]=sheet.getRange(7, 7).getValue();
+  monthly[1]=sheet.getRange(16, 7).getValue();
+  return monthly;
+}

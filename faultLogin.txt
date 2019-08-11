@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TRIAL_VERSION</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_top">
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136233621-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'UA-136233621-1');
+    </script>
+  
+    <script>
+      function login(){
+        window.open("https://www.caplinedentalservices.com/client-portal/","_top");
+        }
+    </script>    
+  </head>
+  <style>
+    header{
+      color:#fff;
+      padding-top:10px;
+      padding-bottom:10px;
+      }
+    
+    .center{
+      display:block;
+      margin-left:auto;
+      margin-right:auto;
+      }
+    
+    .denial{
+      color:red;
+      font-size: 40px;
+      font-weight:bold;
+      font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+      text-align:center;
+      }
+    
+    .div1{
+      margin-left:auto;
+      margin-right:auto;
+      }
+    
+    .msg{
+      color: #44546A;
+      font-weight:bold;
+      text-align:center;
+      }
+    .submsg{
+      text-align:center;
+      }
+    
+    .button1{
+      display:block;
+      margin-left:auto;
+      margin-right:auto;
+      background-color:#1ca7ed;
+      color:#ffffff;
+      font-weight:bold;
+      font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+      border-radius:8px;
+      width:10%;
+      height:30px;
+      }
+  </style>
+  <body>
+    <header>
+      <img src="https://www.caplinedentalservices.com/wp-content/themes/newsmag-child/images/logo.png" class="center"> 
+    </header>
+    <div>
+      <h3 class="denial">Access Denied!</h3>
+      <hr/>
+      <p class="msg">Wrong Username or Password! To try again please click the button below.</p>
+      <p class ="submsg">In case you forgot your access details, please email us on info@caplineservices.com.</p>
+      <button class="button1" onclick="login()">Try Again</button> 
+    </div>  
+    
+  </body>
+</html>
